@@ -2,206 +2,337 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>大乐透号码生成</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小公主的数学乐园</title>
     <style>
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(135deg, #ffafbd, #ffc3a0);
             margin: 0;
-            padding: 10px;
-            background-color: #f0f2f5;
+            padding: 20px;
             min-height: 100vh;
-        }
-        .container {
-            max-width: 400px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 12px;
-            padding: 15px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        .header {
-            text-align: center;
-            margin-bottom: 15px;
-        }
-        .title {
-            font-size: 18px;
-            font-weight: bold;
-            color: #e62429;
-            margin-bottom: 3px;
-        }
-        .subtitle {
-            font-size: 13px;
-            color: #666;
-        }
-        .numbers-display {
-            text-align: center;
-            margin: 15px 0;
-        }
-        .section-title {
-            font-size: 14px;
-            color: #333;
-            margin-bottom: 8px;
-        }
-        .number-row {
             display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 6px;
-            margin-bottom: 12px;
+            flex-direction: column;
+            align-items: center;
         }
-        .number-item {
-            display: inline-block;
-            width: 32px;
-            height: 32px;
-            line-height: 32px;
-            text-align: center;
-            border-radius: 50%;
-            font-weight: bold;
-            font-size: 13px;
-            color: white;
-        }
-        .red-number {
-            background: #e62429;
-        }
-        .blue-number {
-            background: #2575fc;
-        }
-        .generate-btn {
-            display: block;
+        
+        .container {
+            max-width: 800px;
             width: 100%;
-            padding: 12px;
-            background: #e62429;
-            color: white;
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            color: #ff6b6b;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .subtitle {
+            color: #4ecdc4;
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+        
+        .section {
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 15px;
+            background: linear-gradient(to right, #a8edea, #fed6e3);
+        }
+        
+        .numbers-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .number-btn {
+            width: 70px;
+            height: 70px;
             border: none;
-            border-radius: 22px;
-            font-size: 15px;
+            border-radius: 50%;
+            font-size: 1.5em;
             font-weight: bold;
             cursor: pointer;
-            margin: 15px 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
-        .history {
-            margin-top: 15px;
+        
+        .number-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
         }
-        .history-title {
-            font-size: 14px;
-            color: #333;
-            margin-bottom: 8px;
+        
+        .symbols-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin: 20px 0;
         }
-        .history-item {
-            background: #f8f9fa;
-            padding: 8px;
-            margin: 6px 0;
-            border-radius: 5px;
-            font-size: 12px;
-            border-left: 2px solid #2575fc;
+        
+        .symbol-btn {
+            width: 70px;
+            height: 70px;
+            border: none;
+            border-radius: 15px;
+            font-size: 2em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
-        .disclaimer {
-            margin-top: 15px;
-            padding: 10px;
-            background: #fff3cd;
-            border: 1px solid #ffeaa7;
-            border-radius: 5px;
-            font-size: 11px;
-            color: #856404;
-            line-height: 1.3;
+        
+        .symbol-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+        
+        .display-area {
+            background-color: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            color: #ff6b6b;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .interactive-area {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .counter-display {
+            font-size: 3em;
+            color: #ff6b6b;
+            min-width: 100px;
+        }
+        
+        .controls {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .control-btn {
+            width: 50px;
+            height: 50px;
+            border: none;
+            border-radius: 50%;
+            font-size: 1.5em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .add-btn { background-color: #4ecdc4; color: white; }
+        .subtract-btn { background-color: #ff6b6b; color: white; }
+        .multiply-btn { background-color: #ffd166; color: white; }
+        .divide-btn { background-color: #6a0572; color: white; }
+        
+        .emoji-display {
+            font-size: 4em;
+            margin: 10px 0;
+            height: 60px;
+        }
+        
+        .color-1 { background: linear-gradient(45deg, #ff9a9e, #fecfef); }
+        .color-2 { background: linear-gradient(45deg, #fbc2eb, #a6c1ee); }
+        .color-3 { background: linear-gradient(45deg, #84fab0, #8fd3f4); }
+        .color-4 { background: linear-gradient(45deg, #d4fc79, #96e6a1); }
+        .color-5 { background: linear-gradient(45deg, #a1c4fd, #c2e9fb); }
+        .color-6 { background: linear-gradient(45deg, #ffecd2, #fcb69f); }
+        .color-7 { background: linear-gradient(45deg, #ff8a80, #ffccbc); }
+        .color-8 { background: linear-gradient(45deg, #b3e5fc, #e1f5fe); }
+        .color-9 { background: linear-gradient(45deg, #e8eaf6, #c5cae9); }
+        .color-10 { background: linear-gradient(45deg, #f3e5f5, #e1bee7); }
+        
+        .symbol-plus { background-color: #4ecdc4; color: white; }
+        .symbol-minus { background-color: #ff6b6b; color: white; }
+        .symbol-multiply { background-color: #ffd166; color: white; }
+        .symbol-divide { background-color: #6a0572; color: white; }
+        
+        .btn-active {
+            transform: scale(1.2);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <div class="title">超级大乐透号码</div>
-            <div class="subtitle">随机生成器</div>
+        <h1>👸 小公主的数学乐园 👸</h1>
+        <p class="subtitle">点击数字和符号，探索神奇的数学世界！</p>
+        
+        <div class="section">
+            <h2>🔢 认识数字 1-10</h2>
+            <div class="numbers-grid" id="numbersGrid">
+                <!-- 数字按钮将通过JavaScript生成 -->
+            </div>
         </div>
         
-        <div class="numbers-display">
-            <div class="section-title">前区号码 (5个)</div>
-            <div class="number-row" id="frontNumbers"></div>
-            
-            <div class="section-title">后区号码 (2个)</div>
-            <div class="number-row" id="backNumbers"></div>
+        <div class="display-area" id="displayArea">
+            欢迎来到数学乐园！
         </div>
         
-        <button class="generate-btn" onclick="generateNumbers()">生成号码</button>
-        
-        <div class="history">
-            <div class="history-title">历史记录</div>
-            <div id="historyList"></div>
+        <div class="emoji-display" id="emojiDisplay">
+            🌸
         </div>
         
-        <div class="disclaimer">
-            温馨提示：<br>1. 前区1-35选5个，后区1-12选2个<br>2. 仅供娱乐参考，理性购彩<br>3. 未成年人禁止购买
+        <div class="section">
+            <h2>🧮 认识运算符号</h2>
+            <div class="symbols-grid">
+                <button class="symbol-btn symbol-plus" onclick="showSymbol('+')">+</button>
+                <button class="symbol-btn symbol-minus" onclick="showSymbol('-')">−</button>
+                <button class="symbol-btn symbol-multiply" onclick="showSymbol('×')">×</button>
+                <button class="symbol-btn symbol-divide" onclick="showSymbol('÷')">÷</button>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>🎮 互动计数器</h2>
+            <div class="interactive-area">
+                <button class="control-btn add-btn" onclick="changeNumber(1)">+</button>
+                <div class="counter-display" id="counterDisplay">0</div>
+                <button class="control-btn subtract-btn" onclick="changeNumber(-1)">-</button>
+            </div>
+            <p>点击 + 增加数字，点击 - 减少数字</p>
         </div>
     </div>
 
     <script>
-        let history = [];
-
-        function getRandomNumbers(count, min, max) {
-            const nums = new Set();
-            while(nums.size < count) {
-                const num = Math.floor(Math.random() * (max - min + 1)) + min;
-                nums.add(num);
+        // 数字按钮颜色数组
+        const colors = [
+            'color-1', 'color-2', 'color-3', 'color-4', 'color-5',
+            'color-6', 'color-7', 'color-8', 'color-9', 'color-10'
+        ];
+        
+        // 初始化数字按钮
+        function initNumbers() {
+            const numbersGrid = document.getElementById('numbersGrid');
+            for (let i = 1; i <= 10; i++) {
+                const button = document.createElement('button');
+                button.className = `number-btn ${colors[i-1]}`;
+                button.textContent = i;
+                button.onclick = () => showNumber(i);
+                numbersGrid.appendChild(button);
             }
-            return Array.from(nums).sort((a,b) => a - b);
         }
-
-        function generateNumbers() {
-            const front = getRandomNumbers(5, 1, 35);
-            const back = getRandomNumbers(2, 1, 12);
+        
+        // 显示数字信息
+        function showNumber(num) {
+            const displayArea = document.getElementById('displayArea');
+            const emojiDisplay = document.getElementById('emojiDisplay');
             
-            displayNumbers(front, back);
-            addToHistory(front, back);
+            // 不同数字对应不同表情
+            const emojis = ['🐶', '🐱', '🐭', '🐹', '🐰', '🦊', '🐻', '🐼', '🐨', '🐯'];
+            const descriptions = [
+                '一只可爱的小狗 🐶',
+                '一只萌萌的小猫 🐱', 
+                '一只机灵的小老鼠 🐭',
+                '一只圆滚滚的仓鼠 🐹',
+                '一只活泼的小兔子 🐰',
+                '一只聪明的小狐狸 🦊',
+                '一只憨厚的大熊 🐻',
+                '一只黑白相间的大熊猫 🐼',
+                '一只呆萌的考拉 🐨',
+                '一只威武的小老虎 🐯'
+            ];
+            
+            displayArea.innerHTML = `数字 ${num} 就像 ${descriptions[num-1]}<br>读作：${getChineseNumber(num)}`;
+            emojiDisplay.textContent = emojis[num-1];
+            
+            // 添加动画效果
+            const btn = event.target;
+            btn.classList.add('btn-active');
+            setTimeout(() => {
+                btn.classList.remove('btn-active');
+            }, 300);
         }
-
-        function displayNumbers(front, back) {
-            const frontEl = document.getElementById('frontNumbers');
-            const backEl = document.getElementById('backNumbers');
-            
-            frontEl.innerHTML = '';
-            backEl.innerHTML = '';
-            
-            front.forEach(num => {
-                const span = document.createElement('span');
-                span.className = 'number-item red-number';
-                span.textContent = String(num).padStart(2, '0');
-                frontEl.appendChild(span);
-            });
-            
-            back.forEach(num => {
-                const span = document.createElement('span');
-                span.className = 'number-item blue-number';
-                span.textContent = String(num).padStart(2, '0');
-                backEl.appendChild(span);
-            });
+        
+        // 获取中文数字
+        function getChineseNumber(num) {
+            const chineseNumbers = ['', '一', '二', '三', '四', '五', '六', '七', '八', '九', '十'];
+            return chineseNumbers[num];
         }
-
-        function addToHistory(front, back) {
-            const record = {
-                front: [...front],
-                back: [...back],
-                time: new Date().toLocaleTimeString('zh-CN', {hour: '2-digit', minute: '2-digit'})
-            };
+        
+        // 显示符号信息
+        function showSymbol(symbol) {
+            const displayArea = document.getElementById('displayArea');
+            const emojiDisplay = document.getElementById('emojiDisplay');
             
-            history.unshift(record);
-            if(history.length > 5) history.pop();
-            updateHistory();
-        }
-
-        function updateHistory() {
-            const listEl = document.getElementById('historyList');
-            listEl.innerHTML = '';
+            let description = '';
+            let emoji = '';
             
-            history.forEach(item => {
-                const div = document.createElement('div');
-                div.className = 'history-item';
-                div.innerHTML = `${item.time} | 前区:${item.front.map(n => String(n).padStart(2, '0')).join(' ')} 后区:${item.back.map(n => String(n).padStart(2, '0')).join(' ')}`;
-                listEl.appendChild(div);
-            });
+            switch(symbol) {
+                case '+':
+                    description = '加号：用来把数字合在一起，就像把糖果放在一起数总数';
+                    emoji = '🍬 + 🍬 = 🍬🍬';
+                    break;
+                case '-':
+                    description = '减号：用来拿走一些东西，就像吃掉几颗糖果剩下的';
+                    emoji = '🍬🍬 - 🍬 = 🍬';
+                    break;
+                case '×':
+                    description = '乘号：用来重复做相同的事情，就像有几组相同的玩具';
+                    emoji = '🧸 × 2 = 🧸🧸';
+                    break;
+                case '÷':
+                    description = '除号：用来平均分配，就像把蛋糕分给朋友们';
+                    emoji = '🍰 ÷ 2 = 🍰';
+                    break;
+            }
+            
+            displayArea.innerHTML = `${symbol} 符号<br>${description}`;
+            emojiDisplay.textContent = emoji;
+            
+            // 添加动画效果
+            const btn = event.target;
+            btn.classList.add('btn-active');
+            setTimeout(() => {
+                btn.classList.remove('btn-active');
+            }, 300);
         }
-
-        generateNumbers();
+        
+        // 互动计数器
+        let counterValue = 0;
+        const counterDisplay = document.getElementById('counterDisplay');
+        
+        function changeNumber(change) {
+            counterValue += change;
+            if (counterValue < 0) counterValue = 0; // 防止负数
+            counterDisplay.textContent = counterValue;
+            
+            // 更新表情
+            updateCounterEmoji();
+        }
+        
+        function updateCounterEmoji() {
+            const emojiDisplay = document.getElementById('emojiDisplay');
+            if (counterValue === 0) {
+                emojiDisplay.textContent = '🌸';
+            } else if (counterValue <= 5) {
+                emojiDisplay.textContent = '🌟'.repeat(counterValue);
+            } else {
+                emojiDisplay.textContent = '🎉'.repeat(Math.min(counterValue, 10));
+            }
+        }
+        
+        // 页面加载完成后初始化
+        window.onload = function() {
+            initNumbers();
+        };
     </script>
 </body>
 </html>
